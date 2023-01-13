@@ -12,7 +12,7 @@ class OmanScreenViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let ctConfig = CleverTapInstanceConfig.init(accountId: "TEST-RK4-66R-966Z", accountToken:  "TEST-266-432")
+        let ctConfig = CleverTapInstanceConfig.init(accountId: "Account_ID", accountToken:  "Account_Token")
         ctConfig.logLevel = CleverTapLogLevel.debug
         ctConfig.disableIDFV = true
         ctConfig.analyticsOnly = true
@@ -23,7 +23,7 @@ class OmanScreenViewController: UIViewController {
     }
     
     @IBAction func omanOnUserLoginBtn(_ sender: Any) {
-        let ctConfig = CleverTapInstanceConfig.init(accountId: "TEST-RK4-66R-966Z", accountToken:  "TEST-266-432")
+        let ctConfig = CleverTapInstanceConfig.init(accountId: "Account_ID", accountToken:  "Account_Token")
         let cleverTapAdditionalInstance = CleverTap.instance(with: ctConfig)
         let profile: Dictionary<String, Any> = [
             "Name": "Oman iOS 1",
@@ -32,8 +32,6 @@ class OmanScreenViewController: UIViewController {
         ]
 
         cleverTapAdditionalInstance.onUserLogin(profile)
-        //push notification
-        cleverTapAdditionalInstance.recordNotificationViewedEvent(withData: <#T##Any#>)
     }
     
 

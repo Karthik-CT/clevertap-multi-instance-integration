@@ -12,7 +12,7 @@ class KuwaitScreenViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let ctConfig = CleverTapInstanceConfig.init(accountId: "TEST-W8W-6WR-846Z", accountToken:  "TEST-206-0b0")
+        let ctConfig = CleverTapInstanceConfig.init(accountId: "Account_ID", accountToken:  "Account_Token")
         ctConfig.logLevel = CleverTapLogLevel.debug
         ctConfig.disableIDFV = true
         ctConfig.analyticsOnly = true
