@@ -17,8 +17,8 @@ class OmanActivity : AppCompatActivity() {
 
         val clevertapAdditionalInstanceConfig = CleverTapInstanceConfig.createInstance(
             this,
-            "TEST-RK4-66R-966Z",
-            "TEST-266-432"
+            "Account_ID",
+            "Account_Token"
         )
 
         clevertapAdditionalInstanceConfig.setDebugLevel(CleverTapAPI.LogLevel.DEBUG)

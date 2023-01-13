@@ -18,8 +18,8 @@ class KuwaitActivity : AppCompatActivity() {
 
         val clevertapAdditionalInstanceConfig = CleverTapInstanceConfig.createInstance(
             this,
-            "TEST-W8W-6WR-846Z",
-            "TEST-206-0b0"
+            "Account_ID",
+            "Account_Token"
         )
 
         clevertapAdditionalInstanceConfig.setDebugLevel(CleverTapAPI.LogLevel.DEBUG)
