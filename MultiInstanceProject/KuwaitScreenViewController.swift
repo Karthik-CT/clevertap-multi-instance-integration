@@ -23,7 +23,7 @@ class KuwaitScreenViewController: UIViewController {
     }
     
     @IBAction func kuwaitOnUserLoginBtn(_ sender: Any) {
-        let ctConfig = CleverTapInstanceConfig.init(accountId: "TEST-W8W-6WR-846Z", accountToken:  "TEST-206-0b0")
+        let ctConfig = CleverTapInstanceConfig.init(accountId: "Account_ID", accountToken:  "Account_Token")
         let cleverTapAdditionalInstance = CleverTap.instance(with: ctConfig)
         let profile: Dictionary<String, Any> = [
             "Name": "Kuwait iOS 1",
