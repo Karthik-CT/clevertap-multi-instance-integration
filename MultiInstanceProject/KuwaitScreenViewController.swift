@@ -18,7 +18,7 @@ class KuwaitScreenViewController: UIViewController, UNUserNotificationCenterDele
 //        registerForPush()
 //        CleverTap.setCredentialsWithAccountID("TEST-654-Z9R-646Z", andToken: "TEST-2c1-456")
 
-        let ctConfig = CleverTapInstanceConfig.init(accountId: "TEST-654-Z9R-646Z", accountToken:  "TEST-2c1-456")
+        let ctConfig = CleverTapInstanceConfig.init(accountId: "account_id", accountToken:  "account_token")
         ctConfig.logLevel = CleverTapLogLevel.debug
         ctConfig.disableIDFV = true
         ctConfig.analyticsOnly = false
@@ -47,7 +47,7 @@ class KuwaitScreenViewController: UIViewController, UNUserNotificationCenterDele
     }
     
     @IBAction func kuwaitOnUserLoginBtn(_ sender: Any) {
-        let ctConfig = CleverTapInstanceConfig.init(accountId: "TEST-654-Z9R-646Z", accountToken:  "TEST-2c1-456")
+        let ctConfig = CleverTapInstanceConfig.init(accountId: "account_id", accountToken:  "account_token")
         let cleverTapAdditionalInstance = CleverTap.instance(with: ctConfig)
         let profile: Dictionary<String, Any> = [
             "Name": "Kuwait iOS 2",
