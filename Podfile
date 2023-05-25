@@ -8,5 +8,16 @@ target 'MultiInstanceProject' do
   pod "CleverTap-iOS-SDK"
 
   # Pods for MultiInstanceProject
+  
+    target 'NotificationServiceDemo' do
+      # Pods for NotificationService
+      pod 'CTNotificationService'
+      pod "CleverTap-iOS-SDK"
+    end
+  
+    target 'NotificationContentDemo' do
+      pod 'CTNotificationContent'
+      pod "CleverTap-iOS-SDK"
+    end
 
 end

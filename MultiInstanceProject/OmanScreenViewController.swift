@@ -7,32 +7,57 @@
 
 import UIKit
 import CleverTapSDK
+import UserNotifications
+class OmanScreenViewController: UIViewController, UNUserNotificationCenterDelegate {
 
-class OmanScreenViewController: UIViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        let ctConfig = CleverTapInstanceConfig.init(accountId: "Account_ID", accountToken:  "Account_Token")
+        
+//        CleverTap.autoIntegrate()
+        CleverTap.setDebugLevel(3)
+//        registerForPush()
+//        CleverTap.setCredentialsWithAccountID("TEST-654-Z9R-646Z", andToken: "TEST-2c1-456")
+
+        let ctConfig = CleverTapInstanceConfig.init(accountId: "TEST-W8W-6WR-846Z", accountToken:  "TEST-206-0b0")
         ctConfig.logLevel = CleverTapLogLevel.debug
         ctConfig.disableIDFV = true
-        ctConfig.analyticsOnly = true
+        ctConfig.analyticsOnly = false
         ctConfig.enablePersonalization = false
-        
+        //registerForPush()
         let cleverTapAdditionalInstance = CleverTap.instance(with: ctConfig)
-        cleverTapAdditionalInstance.recordEvent("Oman Screen Viewed")
+        
+        cleverTapAdditionalInstance.recordEvent("oman Screen Viewed")
+        var returnValue2 =  UserDefaults.standard.data(forKey: "DeviceTokenKey")
+        print("token is ",returnValue2)
+        cleverTapAdditionalInstance.setPushToken((returnValue2)!)
+        cleverTapAdditionalInstance.notifyApplicationLaunched(withOptions: nil)
     }
     
-    @IBAction func omanOnUserLoginBtn(_ sender: Any) {
-        let ctConfig = CleverTapInstanceConfig.init(accountId: "Account_ID", accountToken:  "Account_Token")
+    func registerForPush() {
+        // Register for Push notifications
+        UNUserNotificationCenter.current().delegate = self
+        // request Permissions
+        UNUserNotificationCenter.current().requestAuthorization(options: [.sound, .badge, .alert], completionHandler: {granted, error in
+            if granted {
+                DispatchQueue.main.async {
+                    UIApplication.shared.registerForRemoteNotifications()
+                }
+            }
+        })
+    }
+    
+    @IBAction func kuwaitOnUserLoginBtn(_ sender: Any) {
+        let ctConfig = CleverTapInstanceConfig.init(accountId: "TEST-W8W-6WR-846Z", accountToken:  "TEST-206-0b0")
         let cleverTapAdditionalInstance = CleverTap.instance(with: ctConfig)
         let profile: Dictionary<String, Any> = [
-            "Name": "Oman iOS 1",
-            "Email": "omanios1@test.com",
-            "Identity": "omanios1"
+            "Name": "Oman iOS 2",
+            "Email": "oman2@test.com",
+            "Identity": "omanios2"
         ]
 
         cleverTapAdditionalInstance.onUserLogin(profile)
     }
     
-
+    
 }
