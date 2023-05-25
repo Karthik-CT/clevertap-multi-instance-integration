@@ -19,7 +19,7 @@ class OmanScreenViewController: UIViewController, UNUserNotificationCenterDelega
 //        registerForPush()
 //        CleverTap.setCredentialsWithAccountID("TEST-654-Z9R-646Z", andToken: "TEST-2c1-456")
 
-        let ctConfig = CleverTapInstanceConfig.init(accountId: "TEST-W8W-6WR-846Z", accountToken:  "TEST-206-0b0")
+        let ctConfig = CleverTapInstanceConfig.init(accountId: "account_id", accountToken:  "account_token")
         ctConfig.logLevel = CleverTapLogLevel.debug
         ctConfig.disableIDFV = true
         ctConfig.analyticsOnly = false
@@ -48,7 +48,7 @@ class OmanScreenViewController: UIViewController, UNUserNotificationCenterDelega
     }
     
     @IBAction func kuwaitOnUserLoginBtn(_ sender: Any) {
-        let ctConfig = CleverTapInstanceConfig.init(accountId: "TEST-W8W-6WR-846Z", accountToken:  "TEST-206-0b0")
+        let ctConfig = CleverTapInstanceConfig.init(accountId: "account_id", accountToken:  "account_token")
         let cleverTapAdditionalInstance = CleverTap.instance(with: ctConfig)
         let profile: Dictionary<String, Any> = [
             "Name": "Oman iOS 2",
