@@ -2,40 +2,30 @@ package com.project.integrationsdk
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.clevertap.android.sdk.CleverTapAPI
-import com.clevertap.android.sdk.CleverTapInstanceConfig
+import android.widget.Toast
 import com.project.integrationsdk.databinding.ActivityOmanBinding
 
 class OmanActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityOmanBinding
+    lateinit var mainApplication: MainApplication
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityOmanBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val clevertapAdditionalInstanceConfig = CleverTapInstanceConfig.createInstance(
-            this,
-            "Account_ID",
-            "Account_Token"
-        )
-
-        clevertapAdditionalInstanceConfig.setDebugLevel(CleverTapAPI.LogLevel.DEBUG)
-        clevertapAdditionalInstanceConfig.isAnalyticsOnly = true
-        clevertapAdditionalInstanceConfig.useGoogleAdId(false)
-        clevertapAdditionalInstanceConfig.enablePersonalization(false)
-
-        val clevertapAdditionalInstance = CleverTapAPI.instanceWithConfig(this, clevertapAdditionalInstanceConfig)
-
-        clevertapAdditionalInstance.pushEvent("Oman Dashboard Entered")
+        mainApplication = application as MainApplication
 
         binding.onUserLogin.setOnClickListener {
-            omanOnUserLogin(clevertapAdditionalInstance)
+            omanOnUserLogin()
         }
+
+        mainApplication.clevertapAdditionalInstance!!.pushEvent("Oman Dashboard Entered")
+
     }
 
-    private fun omanOnUserLogin(clevertapAdditionalInstance: CleverTapAPI?) {
+    private fun omanOnUserLogin() {
         val profile = HashMap<String, Any>()
         profile["Name"] = binding.userName.text.toString()
         profile["Identity"] = binding.userIdentity.text.toString()
@@ -45,6 +35,7 @@ class OmanActivity : AppCompatActivity() {
         profile["MSG-push"] = true
         profile["MSG-sms"] = true
         profile["MSG-whatsapp"] = true
-        clevertapAdditionalInstance?.onUserLogin(profile)
+        mainApplication.clevertapAdditionalInstance!!.onUserLogin(profile)
+        Toast.makeText(applicationContext, "Oman OnUserLogin Clicked", Toast.LENGTH_SHORT).show()
     }
 }

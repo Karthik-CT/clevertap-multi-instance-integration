@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -16,6 +17,15 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+
+//    productFlavors {
+//        oman {
+//            manifestPlaceholders = [accountID: "TEST-RK4-66R-966Z", accountToken: "TEST-266-432", label: "OmanMultiInstance"]
+//        }
+//        kuwait {
+//            manifestPlaceholders = [accountID: "TEST-W8W-6WR-846Z", accountToken: "TEST-206-0b0", label: "KuwaitMultiInstance"]
+//        }
+//    }
 
     buildTypes {
         release {
@@ -33,11 +43,16 @@ android {
     buildFeatures {
         viewBinding true
     }
+    configurations.all {
+        resolutionStrategy {
+            force("androidx.core:core-ktx:1.9.0")
+        }
+    }
 }
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation 'androidx.core:core-ktx:1.9.0'
     implementation 'androidx.appcompat:appcompat:1.4.1'
     implementation 'com.google.android.material:material:1.5.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.3'

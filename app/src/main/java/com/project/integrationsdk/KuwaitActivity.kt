@@ -1,6 +1,9 @@
 package com.project.integrationsdk
 
+import android.app.NotificationManager
+import android.os.Build
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.clevertap.android.sdk.CleverTapAPI
 import com.clevertap.android.sdk.CleverTapInstanceConfig
@@ -10,35 +13,24 @@ import com.project.integrationsdk.databinding.ActivityKuwaitBinding
 class KuwaitActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityKuwaitBinding
+    lateinit var mainApplication: MainApplication
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityKuwaitBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val clevertapAdditionalInstanceConfig = CleverTapInstanceConfig.createInstance(
-            this,
-            "Account_ID",
-            "Account_Token"
-        )
+        mainApplication = application as MainApplication
 
-        clevertapAdditionalInstanceConfig.setDebugLevel(CleverTapAPI.LogLevel.DEBUG)
-        clevertapAdditionalInstanceConfig.isAnalyticsOnly = true
-        clevertapAdditionalInstanceConfig.useGoogleAdId(false)
-        clevertapAdditionalInstanceConfig.enablePersonalization(false)
-
-        val clevertapAdditionalInstance =
-            CleverTapAPI.instanceWithConfig(this, clevertapAdditionalInstanceConfig)
-
-        clevertapAdditionalInstance.pushEvent("Kuwait Dashboard Entered")
+        mainApplication.clevertapAdditionalInstance!!.pushEvent("Kuwait Dashboard Entered")
 
         binding.onUserLogin.setOnClickListener {
-            kuwaitOnUserLogin(clevertapAdditionalInstance)
+            kuwaitOnUserLogin()
         }
 
     }
 
-    private fun kuwaitOnUserLogin(clevertapAdditionalInstance: CleverTapAPI?) {
+    private fun kuwaitOnUserLogin() {
         val profile = HashMap<String, Any>()
         profile["Name"] = binding.userName.text.toString()
         profile["Identity"] = binding.userIdentity.text.toString()
@@ -48,6 +40,8 @@ class KuwaitActivity : AppCompatActivity() {
         profile["MSG-push"] = true
         profile["MSG-sms"] = true
         profile["MSG-whatsapp"] = true
-        clevertapAdditionalInstance?.onUserLogin(profile)
+        mainApplication.clevertapAdditionalInstance!!.onUserLogin(profile)
+        Toast.makeText(applicationContext, "Kuwait OnUserLogin Clicked", Toast.LENGTH_SHORT).show()
+
     }
 }
