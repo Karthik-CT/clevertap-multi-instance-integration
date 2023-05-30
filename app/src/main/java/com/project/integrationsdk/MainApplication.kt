@@ -32,8 +32,8 @@ class MainApplication : Application() {
         if (country == "Oman") {
             clevertapAdditionalInstanceConfig = CleverTapInstanceConfig.createInstance(
                 this,
-                "TEST-RK4-66R-966Z",
-                "TEST-266-432"
+                "account_id",
+                "account_token"
             )
 
             clevertapAdditionalInstanceConfig!!.setDebugLevel(CleverTapAPI.LogLevel.DEBUG)
@@ -47,8 +47,8 @@ class MainApplication : Application() {
         } else if (country == "Kuwait") {
             clevertapAdditionalInstanceConfig = CleverTapInstanceConfig.createInstance(
                 this,
-                "TEST-W8W-6WR-846Z",
-                "TEST-206-0b0"
+                "account_id",
+                "account_token"
             )
 
             clevertapAdditionalInstanceConfig!!.setDebugLevel(CleverTapAPI.LogLevel.DEBUG)
