@@ -1,8 +1,12 @@
 package com.project.integrationsdk
 
+import android.app.NotificationManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import com.clevertap.android.pushtemplates.PushTemplateNotificationHandler
+import com.clevertap.android.sdk.CleverTapAPI
+import com.clevertap.android.sdk.interfaces.NotificationHandler
 import com.project.integrationsdk.databinding.ActivityOmanBinding
 
 class OmanActivity : AppCompatActivity() {
@@ -21,7 +25,28 @@ class OmanActivity : AppCompatActivity() {
             omanOnUserLogin()
         }
 
+        CleverTapAPI.setDebugLevel(CleverTapAPI.LogLevel.DEBUG)
+
+        //push templates
+        CleverTapAPI.setNotificationHandler(PushTemplateNotificationHandler() as NotificationHandler)
+
+        CleverTapAPI.createNotificationChannel(
+            applicationContext, "testkk123", "Notification Test", "CleverTap Notification Test",
+            NotificationManager.IMPORTANCE_MAX, true
+        )
+        CleverTapAPI.createNotificationChannel(
+            applicationContext,
+            "testkk1234",
+            "KK Notification Test",
+            "KK CleverTap Notification Test",
+            NotificationManager.IMPORTANCE_MAX,
+            true
+        )
+
+        mainApplication.clevertapAdditionalInstance!!.enableDeviceNetworkInfoReporting(true)
+
         mainApplication.clevertapAdditionalInstance!!.pushEvent("Oman Dashboard Entered")
+        mainApplication.clevertapAdditionalInstance!!.pushEvent("KK Segment CT Completed")
 
     }
 

@@ -74,6 +74,22 @@
             </intent-filter>
         </service>
 
+        <!--        Custom Android Push Notifications Handling-->
+<!--        <service-->
+<!--            android:name=".MyFcmMessageListenerService"-->
+<!--            android:exported="false">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="com.google.firebase.MESSAGING_EVENT" />-->
+<!--            </intent-filter>-->
+<!--        </service>-->
+
+<!--        <receiver-->
+<!--            android:name="com.clevertap.android.sdk.pushnotification.CTPushNotificationReceiver"-->
+<!--            android:enabled="true"-->
+<!--            android:exported="false">-->
+
+<!--        </receiver>-->
+
     </application>
 
 </manifest>

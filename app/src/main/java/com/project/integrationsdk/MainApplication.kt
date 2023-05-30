@@ -13,11 +13,10 @@ import com.clevertap.android.sdk.interfaces.NotificationHandler
 import com.clevertap.android.sdk.pushnotification.CTPushNotificationListener
 import java.util.HashMap
 
-class MainApplication : Application(), CTPushNotificationListener {
+class MainApplication : Application() {
 
     var clevertapAdditionalInstance: CleverTapAPI? = null
     var clevertapAdditionalInstanceConfig: CleverTapInstanceConfig? = null
-    var cleverTapDefaultInstance: CleverTapAPI? = null
 
     @SuppressLint("MParticleInitialization")
     override fun onCreate() {
@@ -27,31 +26,6 @@ class MainApplication : Application(), CTPushNotificationListener {
         clevertapAdditionalInstance = CleverTapAPI.getDefaultInstance(applicationContext)
 
         CleverTapAPI.setDebugLevel(CleverTapAPI.LogLevel.DEBUG)
-        cleverTapDefaultInstance = CleverTapAPI.getDefaultInstance(applicationContext)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CleverTapAPI.createNotificationChannelGroup(
-                applicationContext,
-                "testkk1",
-                "Notification Test"
-            )
-        }
-        CleverTapAPI.createNotificationChannel(
-            applicationContext, "testkk123", "Notification Test", "CleverTap Notification Test",
-            NotificationManager.IMPORTANCE_MAX, true
-        )
-        CleverTapAPI.createNotificationChannel(
-            applicationContext,
-            "testkk1234",
-            "KK Notification Test",
-            "KK CleverTap Notification Test",
-            NotificationManager.IMPORTANCE_MAX,
-            true
-        )
-
-        //push templates
-        CleverTapAPI.setNotificationHandler(PushTemplateNotificationHandler() as NotificationHandler)
-
-        cleverTapDefaultInstance?.enableDeviceNetworkInfoReporting(true)
     }
 
     fun initializeCountry(country: String) {
@@ -63,11 +37,12 @@ class MainApplication : Application(), CTPushNotificationListener {
             )
 
             clevertapAdditionalInstanceConfig!!.setDebugLevel(CleverTapAPI.LogLevel.DEBUG)
-            clevertapAdditionalInstanceConfig!!.isAnalyticsOnly = true
+            clevertapAdditionalInstanceConfig!!.isAnalyticsOnly = false
             clevertapAdditionalInstanceConfig!!.useGoogleAdId(false)
             clevertapAdditionalInstanceConfig!!.enablePersonalization(false)
 
-            clevertapAdditionalInstance = CleverTapAPI.instanceWithConfig(this, clevertapAdditionalInstanceConfig)
+            clevertapAdditionalInstance = CleverTapAPI.instanceWithConfig(applicationContext, clevertapAdditionalInstanceConfig)
+
 
         } else if (country == "Kuwait") {
             clevertapAdditionalInstanceConfig = CleverTapInstanceConfig.createInstance(
@@ -77,15 +52,11 @@ class MainApplication : Application(), CTPushNotificationListener {
             )
 
             clevertapAdditionalInstanceConfig!!.setDebugLevel(CleverTapAPI.LogLevel.DEBUG)
-            clevertapAdditionalInstanceConfig!!.isAnalyticsOnly = true
+            clevertapAdditionalInstanceConfig!!.isAnalyticsOnly = false
             clevertapAdditionalInstanceConfig!!.useGoogleAdId(false)
             clevertapAdditionalInstanceConfig!!.enablePersonalization(false)
 
-            clevertapAdditionalInstance = CleverTapAPI.instanceWithConfig(this, clevertapAdditionalInstanceConfig)
+            clevertapAdditionalInstance = CleverTapAPI.instanceWithConfig(applicationContext, clevertapAdditionalInstanceConfig)
         }
-    }
-
-    override fun onNotificationClickedPayloadReceived(payload: HashMap<String, Any>?) {
-        println("appl_paylaod: $payload")
     }
 }

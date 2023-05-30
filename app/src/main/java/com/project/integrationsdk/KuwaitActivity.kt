@@ -1,14 +1,17 @@
 package com.project.integrationsdk
 
 import android.app.NotificationManager
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.clevertap.android.pushtemplates.PushTemplateNotificationHandler
+import com.clevertap.android.sdk.ActivityLifecycleCallback
 import com.clevertap.android.sdk.CleverTapAPI
 import com.clevertap.android.sdk.CleverTapInstanceConfig
+import com.clevertap.android.sdk.interfaces.NotificationHandler
 import com.project.integrationsdk.databinding.ActivityKuwaitBinding
-
 
 class KuwaitActivity : AppCompatActivity() {
 
@@ -22,7 +25,29 @@ class KuwaitActivity : AppCompatActivity() {
 
         mainApplication = application as MainApplication
 
+        CleverTapAPI.setDebugLevel(CleverTapAPI.LogLevel.DEBUG)
+
+        //push templates
+        CleverTapAPI.setNotificationHandler(PushTemplateNotificationHandler() as NotificationHandler)
+
+        CleverTapAPI.createNotificationChannel(
+            applicationContext, "testkk123", "Notification Test", "CleverTap Notification Test",
+            NotificationManager.IMPORTANCE_MAX, true
+        )
+        CleverTapAPI.createNotificationChannel(
+            applicationContext,
+            "testkk1234",
+            "KK Notification Test",
+            "KK CleverTap Notification Test",
+            NotificationManager.IMPORTANCE_MAX,
+            true
+        )
+
         mainApplication.clevertapAdditionalInstance!!.pushEvent("Kuwait Dashboard Entered")
+
+        mainApplication.clevertapAdditionalInstance!!.enableDeviceNetworkInfoReporting(true)
+
+
 
         binding.onUserLogin.setOnClickListener {
             kuwaitOnUserLogin()

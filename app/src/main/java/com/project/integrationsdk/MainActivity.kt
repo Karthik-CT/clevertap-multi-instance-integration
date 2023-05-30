@@ -1,12 +1,15 @@
 package com.project.integrationsdk
 
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import com.clevertap.android.sdk.pushnotification.CTPushNotificationListener
 import com.project.integrationsdk.databinding.ActivityMainBinding
+import java.util.HashMap
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), CTPushNotificationListener {
 
     lateinit var binding : ActivityMainBinding
     lateinit var mainApplication: MainApplication
@@ -30,4 +33,16 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            mainApplication.clevertapAdditionalInstance!!.pushNotificationClickedEvent(intent!!.extras)
+        }
+    }
+
+    override fun onNotificationClickedPayloadReceived(payload: HashMap<String, Any>?) {
+        println("appl_paylaod: $payload")
+    }
+
 }
