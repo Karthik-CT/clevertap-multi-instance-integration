@@ -28,8 +28,8 @@ class OmanScreenViewController: UIViewController, UNUserNotificationCenterDelega
         
         //save the account id and token in user defaults so that it could be used in app delegate to raise events of particular isntance
         if(cleverTapAdditionalInstance != nil){
-            UserDefaults.standard.setValue("TEST-W8W-6WR-846Z", forKey: "AccountId")
-            UserDefaults.standard.setValue("TEST-206-0b0", forKey: "AccountToken")
+            UserDefaults.standard.setValue("account_id", forKey: "AccountId")
+            UserDefaults.standard.setValue("account_token", forKey: "AccountToken")
         }
         
         cleverTapAdditionalInstance.recordEvent("oman Screen Viewed")
