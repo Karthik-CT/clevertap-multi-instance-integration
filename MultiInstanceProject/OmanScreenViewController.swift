@@ -21,11 +21,15 @@ class OmanScreenViewController: UIViewController, UNUserNotificationCenterDelega
 
         let ctConfig = CleverTapInstanceConfig.init(accountId: "account_id", accountToken:  "account_token")
         ctConfig.logLevel = CleverTapLogLevel.debug
-        ctConfig.disableIDFV = true
         ctConfig.analyticsOnly = false
         ctConfig.enablePersonalization = false
         //registerForPush()
         let cleverTapAdditionalInstance = CleverTap.instance(with: ctConfig)
+        
+        if(cleverTapAdditionalInstance != nil){
+            UserDefaults.standard.setValue("TEST-W8W-6WR-846Z", forKey: "AccountId")
+            UserDefaults.standard.setValue("TEST-206-0b0", forKey: "AccountToken")
+        }
         
         cleverTapAdditionalInstance.recordEvent("oman Screen Viewed")
         var returnValue2 =  UserDefaults.standard.data(forKey: "DeviceTokenKey")

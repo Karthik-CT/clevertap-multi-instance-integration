@@ -20,11 +20,15 @@ class KuwaitScreenViewController: UIViewController, UNUserNotificationCenterDele
 
         let ctConfig = CleverTapInstanceConfig.init(accountId: "account_id", accountToken:  "account_token")
         ctConfig.logLevel = CleverTapLogLevel.debug
-        ctConfig.disableIDFV = true
         ctConfig.analyticsOnly = false
         ctConfig.enablePersonalization = false
         //registerForPush()
         let cleverTapAdditionalInstance = CleverTap.instance(with: ctConfig)
+        
+        if(cleverTapAdditionalInstance != nil){
+            UserDefaults.standard.setValue("TEST-654-Z9R-646Z", forKey: "AccountId")
+            UserDefaults.standard.setValue("TEST-2c1-456", forKey: "AccountToken")
+        }
         
         cleverTapAdditionalInstance.recordEvent("Kuwait Screen Viewed")
         var returnValue2 =  UserDefaults.standard.data(forKey: "DeviceTokenKey")
@@ -50,9 +54,9 @@ class KuwaitScreenViewController: UIViewController, UNUserNotificationCenterDele
         let ctConfig = CleverTapInstanceConfig.init(accountId: "account_id", accountToken:  "account_token")
         let cleverTapAdditionalInstance = CleverTap.instance(with: ctConfig)
         let profile: Dictionary<String, Any> = [
-            "Name": "Kuwait iOS 2",
-            "Email": "kuwaitios2@test.com",
-            "Identity": "kuwaitios2"
+            "Name": "Kuwait iOS 6",
+            "Email": "kuwaitios6@test.com",
+            "Identity": "kuwaitios6"
         ]
 
         cleverTapAdditionalInstance.onUserLogin(profile)

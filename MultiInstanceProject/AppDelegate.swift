@@ -125,7 +125,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                                     withCompletionHandler completionHandler: @escaping () -> Void) {
             //CleverTap.sharedInstance()?.handleNotification(withData: response.notification.request.content.userInfo, openDeepLinksInForeground: true)
             //CleverTap.sharedInstance()?.recordNotificationViewedEvent(withData: response.notification.request.content.userInfo)
-//            CleverTap.sharedInstance()?.recordNotificationClickedEvent(withData: response.notification.request.content.userInfo)
+            var accountId =  UserDefaults.standard.string(forKey: "AccountId")!
+            var accountToken =  UserDefaults.standard.string(forKey: "AccountToken")!
+            let ctConfig = CleverTapInstanceConfig.init(accountId: accountId, accountToken:  accountToken)
+            let cleverTapAdditionalInstance = CleverTap.instance(with: ctConfig)
+            cleverTapAdditionalInstance.recordNotificationClickedEvent(withData: response.notification.request.content.userInfo)
             NSLog("%@: did receive notification response: %@", self.description, response.notification.request.content.userInfo)
             completionHandler()
          }

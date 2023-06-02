@@ -84,6 +84,8 @@
 		4EDC5B62296EB8B8000F482C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4EDC5B65296EB8B8000F482C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4EDC5B67296EB8B8000F482C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4EE8D9F22A2670CC003FB553 /* NotificationServiceDemo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NotificationServiceDemo.entitlements; sourceTree = "<group>"; };
+		4EE8D9F32A2670D7003FB553 /* NotificationContentDemo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NotificationContentDemo.entitlements; sourceTree = "<group>"; };
 		72ADB7E5E7CD1FBECA222351 /* Pods-MultiInstanceProject-NotificationServiceDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultiInstanceProject-NotificationServiceDemo.debug.xcconfig"; path = "Target Support Files/Pods-MultiInstanceProject-NotificationServiceDemo/Pods-MultiInstanceProject-NotificationServiceDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		76DBDCADF78790AE32C30CDE /* Pods_MultiInstanceProject_NotificationServiceDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MultiInstanceProject_NotificationServiceDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BF38B75CDDB80FE7FDBA4B5 /* Pods_MultiInstanceProject.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MultiInstanceProject.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -124,6 +126,7 @@
 		4E213CBA2A1F9A38002793E6 /* NotificationServiceDemo */ = {
 			isa = PBXGroup;
 			children = (
+				4EE8D9F22A2670CC003FB553 /* NotificationServiceDemo.entitlements */,
 				4E213CBB2A1F9A38002793E6 /* NotificationService.swift */,
 				4E213CBD2A1F9A38002793E6 /* Info.plist */,
 			);
@@ -133,6 +136,7 @@
 		4E213CCB2A1F9A69002793E6 /* NotificationContentDemo */ = {
 			isa = PBXGroup;
 			children = (
+				4EE8D9F32A2670D7003FB553 /* NotificationContentDemo.entitlements */,
 				4E213CCC2A1F9A69002793E6 /* NotificationViewController.swift */,
 				4E213CCE2A1F9A69002793E6 /* MainInterface.storyboard */,
 				4E213CD12A1F9A69002793E6 /* Info.plist */,
@@ -403,7 +407,7 @@
 		};
 		F86D58D254E9AEE1E4A9FCBF /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			files = (
 			);
 			inputFileListPaths = (
@@ -497,6 +501,7 @@
 			baseConfigurationReference = 72ADB7E5E7CD1FBECA222351 /* Pods-MultiInstanceProject-NotificationServiceDemo.debug.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = NotificationServiceDemo/NotificationServiceDemo.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7XM67G79YA;
@@ -504,7 +509,7 @@
 				INFOPLIST_FILE = NotificationServiceDemo/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = NotificationServiceDemo;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -525,6 +530,7 @@
 			baseConfigurationReference = 1F1D912C7F55C602BF0AE2D6 /* Pods-MultiInstanceProject-NotificationServiceDemo.release.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = NotificationServiceDemo/NotificationServiceDemo.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7XM67G79YA;
@@ -532,7 +538,7 @@
 				INFOPLIST_FILE = NotificationServiceDemo/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = NotificationServiceDemo;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -553,6 +559,7 @@
 			baseConfigurationReference = 4716998B9BA15590CB6F7109 /* Pods-MultiInstanceProject-NotificationContentDemo.debug.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = NotificationContentDemo/NotificationContentDemo.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7XM67G79YA;
@@ -560,7 +567,7 @@
 				INFOPLIST_FILE = NotificationContentDemo/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = NotificationContentDemo;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -581,6 +588,7 @@
 			baseConfigurationReference = 3567044533E2251A59776878 /* Pods-MultiInstanceProject-NotificationContentDemo.release.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = NotificationContentDemo/NotificationContentDemo.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7XM67G79YA;
@@ -588,7 +596,7 @@
 				INFOPLIST_FILE = NotificationContentDemo/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = NotificationContentDemo;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
