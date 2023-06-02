@@ -27,8 +27,8 @@ class KuwaitScreenViewController: UIViewController, UNUserNotificationCenterDele
         
         //save the account id and token in user defaults so that it could be used in app delegate to raise events of particular isntance
         if(cleverTapAdditionalInstance != nil){
-            UserDefaults.standard.setValue("TEST-654-Z9R-646Z", forKey: "AccountId")
-            UserDefaults.standard.setValue("TEST-2c1-456", forKey: "AccountToken")
+            UserDefaults.standard.setValue("account_id", forKey: "AccountId")
+            UserDefaults.standard.setValue("account_token", forKey: "AccountToken")
         }
         
         cleverTapAdditionalInstance.recordEvent("Kuwait Screen Viewed")
