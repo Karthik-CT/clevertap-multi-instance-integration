@@ -20,7 +20,9 @@ class NotificationService: CTNotificationServiceExtension {
         
         
         //here in the below code get your accountId and accountToken from the app groups this will help to initiate the selected instance of clevertap dashboard
-        let ctConfig = CleverTapInstanceConfig.init(accountId: "account_id", accountToken:  "account_token")
+        var accountId =  UserDefaults.standard.string(forKey: "AccountId")!
+        var accountToken =  UserDefaults.standard.string(forKey: "AccountToken")!
+        let ctConfig = CleverTapInstanceConfig.init(accountId: accountId, accountToken:  accountToken)
         ctConfig.logLevel = CleverTapLogLevel.debug
         ctConfig.analyticsOnly = false
         ctConfig.enablePersonalization = false
