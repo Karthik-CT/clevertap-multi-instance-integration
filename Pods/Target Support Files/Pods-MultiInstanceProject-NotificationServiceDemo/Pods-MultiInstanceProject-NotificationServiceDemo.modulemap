@@ -1,0 +1,6 @@
+framework module Pods_MultiInstanceProject_NotificationServiceDemo {
+  umbrella header "Pods-MultiInstanceProject-NotificationServiceDemo-umbrella.h"
+
+  export *
+  module * { export * }
+}

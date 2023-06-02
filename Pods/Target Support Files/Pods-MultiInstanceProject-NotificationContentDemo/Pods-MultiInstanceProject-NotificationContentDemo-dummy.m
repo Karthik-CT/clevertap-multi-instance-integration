@@ -1,0 +1,5 @@
+#import <Foundation/Foundation.h>
+@interface PodsDummy_Pods_MultiInstanceProject_NotificationContentDemo : NSObject
+@end
+@implementation PodsDummy_Pods_MultiInstanceProject_NotificationContentDemo
+@end
