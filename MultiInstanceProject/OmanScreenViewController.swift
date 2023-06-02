@@ -26,6 +26,7 @@ class OmanScreenViewController: UIViewController, UNUserNotificationCenterDelega
         //registerForPush()
         let cleverTapAdditionalInstance = CleverTap.instance(with: ctConfig)
         
+        //save the account id and token in user defaults so that it could be used in app delegate to raise events of particular isntance
         if(cleverTapAdditionalInstance != nil){
             UserDefaults.standard.setValue("TEST-W8W-6WR-846Z", forKey: "AccountId")
             UserDefaults.standard.setValue("TEST-206-0b0", forKey: "AccountToken")

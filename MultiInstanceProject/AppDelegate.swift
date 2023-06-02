@@ -125,6 +125,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                                     withCompletionHandler completionHandler: @escaping () -> Void) {
             //CleverTap.sharedInstance()?.handleNotification(withData: response.notification.request.content.userInfo, openDeepLinksInForeground: true)
             //CleverTap.sharedInstance()?.recordNotificationViewedEvent(withData: response.notification.request.content.userInfo)
+            
+            //fetch the the account id and token from the User Defaults from the particular selected instance
             var accountId =  UserDefaults.standard.string(forKey: "AccountId")!
             var accountToken =  UserDefaults.standard.string(forKey: "AccountToken")!
             let ctConfig = CleverTapInstanceConfig.init(accountId: accountId, accountToken:  accountToken)
