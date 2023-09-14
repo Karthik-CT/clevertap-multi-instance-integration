@@ -9,27 +9,35 @@ import UIKit
 import CleverTapSDK
 import UserNotifications
 class OmanScreenViewController: UIViewController, UNUserNotificationCenterDelegate {
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        CleverTap.autoIntegrate()
+        //        CleverTap.autoIntegrate()
         CleverTap.setDebugLevel(3)
-//        registerForPush()
-//        CleverTap.setCredentialsWithAccountID("TEST-654-Z9R-646Z", andToken: "TEST-2c1-456")
-
-        let ctConfig = CleverTapInstanceConfig.init(accountId: "account_id", accountToken:  "account_token")
+        //        registerForPush()
+        //        CleverTap.setCredentialsWithAccountID("TEST-654-Z9R-646Z", andToken: "TEST-2c1-456")
+        
+        let ctConfig = CleverTapInstanceConfig.init(accountId: "TEST-W8W-6WR-846Z", accountToken:  "TEST-206-0b0")
         ctConfig.logLevel = CleverTapLogLevel.debug
         ctConfig.analyticsOnly = false
         ctConfig.enablePersonalization = false
         //registerForPush()
         let cleverTapAdditionalInstance = CleverTap.instance(with: ctConfig)
+        cleverTapAdditionalInstance.enableDeviceNetworkInfoReporting(true)
+        cleverTapAdditionalInstance.notifyApplicationLaunched(withOptions: nil)
         
         //save the account id and token in user defaults so that it could be used in app delegate to raise events of particular isntance
         if(cleverTapAdditionalInstance != nil){
-            UserDefaults.standard.setValue("account_id", forKey: "AccountId")
-            UserDefaults.standard.setValue("account_token", forKey: "AccountToken")
+            //user deafaults
+            UserDefaults.standard.setValue("TEST-W8W-6WR-846Z", forKey: "AccountId")
+            UserDefaults.standard.setValue("TEST-206-0b0", forKey: "AccountToken")
+            
+            //app groups
+            let defaults = UserDefaults(suiteName: "group.clevertapTest")
+            defaults!.set("TEST-W8W-6WR-846Z", forKey: "AccountId")
+            defaults!.set("TEST-206-0b0", forKey: "AccountToken")
         }
         
         cleverTapAdditionalInstance.recordEvent("oman Screen Viewed")
@@ -53,14 +61,14 @@ class OmanScreenViewController: UIViewController, UNUserNotificationCenterDelega
     }
     
     @IBAction func kuwaitOnUserLoginBtn(_ sender: Any) {
-        let ctConfig = CleverTapInstanceConfig.init(accountId: "account_id", accountToken:  "account_token")
+        let ctConfig = CleverTapInstanceConfig.init(accountId: "TEST-W8W-6WR-846Z", accountToken:  "TEST-206-0b0")
         let cleverTapAdditionalInstance = CleverTap.instance(with: ctConfig)
         let profile: Dictionary<String, Any> = [
             "Name": "Oman iOS 2",
             "Email": "oman2@test.com",
             "Identity": "omanios2"
         ]
-
+        
         cleverTapAdditionalInstance.onUserLogin(profile)
     }
     

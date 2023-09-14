@@ -18,17 +18,18 @@ class KuwaitScreenViewController: UIViewController, UNUserNotificationCenterDele
 //        registerForPush()
 //        CleverTap.setCredentialsWithAccountID("TEST-654-Z9R-646Z", andToken: "TEST-2c1-456")
 
-        let ctConfig = CleverTapInstanceConfig.init(accountId: "account_id", accountToken:  "account_token")
+        let ctConfig = CleverTapInstanceConfig.init(accountId: "TEST-654-Z9R-646Z", accountToken:  "TEST-2c1-456")
         ctConfig.logLevel = CleverTapLogLevel.debug
         ctConfig.analyticsOnly = false
         ctConfig.enablePersonalization = false
+        
         //registerForPush()
         let cleverTapAdditionalInstance = CleverTap.instance(with: ctConfig)
         
         //save the account id and token in user defaults so that it could be used in app delegate to raise events of particular isntance
         if(cleverTapAdditionalInstance != nil){
-            UserDefaults.standard.setValue("account_id", forKey: "AccountId")
-            UserDefaults.standard.setValue("account_token", forKey: "AccountToken")
+            UserDefaults.standard.setValue("TEST-654-Z9R-646Z", forKey: "AccountId")
+            UserDefaults.standard.setValue("TEST-2c1-456", forKey: "AccountToken")
         }
         
         cleverTapAdditionalInstance.recordEvent("Kuwait Screen Viewed")
@@ -52,7 +53,7 @@ class KuwaitScreenViewController: UIViewController, UNUserNotificationCenterDele
     }
     
     @IBAction func kuwaitOnUserLoginBtn(_ sender: Any) {
-        let ctConfig = CleverTapInstanceConfig.init(accountId: "account_id", accountToken:  "account_token")
+        let ctConfig = CleverTapInstanceConfig.init(accountId: "TEST-654-Z9R-646Z", accountToken:  "TEST-2c1-456")
         let cleverTapAdditionalInstance = CleverTap.instance(with: ctConfig)
         let profile: Dictionary<String, Any> = [
             "Name": "Kuwait iOS 6",

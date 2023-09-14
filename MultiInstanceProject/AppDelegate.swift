@@ -126,10 +126,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             //CleverTap.sharedInstance()?.handleNotification(withData: response.notification.request.content.userInfo, openDeepLinksInForeground: true)
             //CleverTap.sharedInstance()?.recordNotificationViewedEvent(withData: response.notification.request.content.userInfo)
             
-            //fetch the the account id and token from the User Defaults from the particular selected instance
-            var accountId =  UserDefaults.standard.string(forKey: "AccountId")!
-            var accountToken =  UserDefaults.standard.string(forKey: "AccountToken")!
-            let ctConfig = CleverTapInstanceConfig.init(accountId: accountId, accountToken:  accountToken)
+            //fetch the the account id and token from the User Defaults for the selected instance
+//            var accountId =  UserDefaults.standard.string(forKey: "AccountId")!
+//            var accountToken =  UserDefaults.standard.string(forKey: "AccountToken")!
+            
+            //fetch the the account id and token from the app groups for the selected instance
+            let defaults = UserDefaults.init(suiteName: "group.clevertapTest")
+            let appgroups_accountId = defaults?.value(forKey: "AccountId") as! String
+            let appgroups_accountToken = defaults?.value(forKey: "AccountToken") as! String
+            
+            let ctConfig = CleverTapInstanceConfig.init(accountId: appgroups_accountId, accountToken:  appgroups_accountToken)
             let cleverTapAdditionalInstance = CleverTap.instance(with: ctConfig)
             cleverTapAdditionalInstance.recordNotificationClickedEvent(withData: response.notification.request.content.userInfo)
             NSLog("%@: did receive notification response: %@", self.description, response.notification.request.content.userInfo)

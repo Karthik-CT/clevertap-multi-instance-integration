@@ -32,9 +32,7 @@ class NotificationViewController: CTNotificationViewController {
     override func userDidReceive(_ response: UNNotificationResponse?) {
 
         //here in the below code get your accountId and accountToken from the app groups this will help to initiate the selected instance of clevertap dashboard
-        var accountId =  UserDefaults.standard.string(forKey: "AccountId")!
-        var accountToken =  UserDefaults.standard.string(forKey: "AccountToken")!
-        let ctConfig = CleverTapInstanceConfig.init(accountId: accountId, accountToken:  accountToken)
+        let ctConfig = CleverTapInstanceConfig.init(accountId: "TEST-W8W-6WR-846Z", accountToken:  "TEST-206-0b0")
         ctConfig.logLevel = CleverTapLogLevel.debug
         ctConfig.analyticsOnly = false
         ctConfig.enablePersonalization = false
@@ -43,7 +41,8 @@ class NotificationViewController: CTNotificationViewController {
         print("Push Notification Payload \(String(describing: response?.notification.request.content.userInfo))")
         let notificationPayload = response?.notification.request.content.userInfo
         if (response?.actionIdentifier == "action_2") {
-            cleverTapAdditionalInstance.recordNotificationClickedEvent(withData: notificationPayload ?? "")
+//            cleverTapAdditionalInstance.recordNotificationClickedEvent(withData: notificationPayload ?? "")
+            print("This is from NotificationContent class")
         }
     }
 
