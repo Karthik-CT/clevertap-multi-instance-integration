@@ -10,15 +10,22 @@ import CleverTapSDK
 
 class KuwaitScreenViewController: UIViewController, UNUserNotificationCenterDelegate {
     
+    let defaults = UserDefaults(suiteName: "group.clevertapTest")
+    let countryAccountID = "TEST-654-Z9R-646Z"
+    let countryAccountToken = "TEST-2c1-456"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
 //        CleverTap.autoIntegrate()
         CleverTap.setDebugLevel(3)
 //        registerForPush()
-//        CleverTap.setCredentialsWithAccountID("TEST-654-Z9R-646Z", andToken: "TEST-2c1-456")
+        
+        defaults!.set(countryAccountID, forKey: "countryAccountID")
+        defaults!.set(countryAccountToken, forKey: "countryAccountToken")
 
-        let ctConfig = CleverTapInstanceConfig.init(accountId: "TEST-654-Z9R-646Z", accountToken:  "TEST-2c1-456")
+    
+        let ctConfig = CleverTapInstanceConfig.init(accountId: countryAccountID , accountToken:  countryAccountToken)
         ctConfig.logLevel = CleverTapLogLevel.debug
         ctConfig.analyticsOnly = false
         ctConfig.enablePersonalization = false
@@ -28,8 +35,8 @@ class KuwaitScreenViewController: UIViewController, UNUserNotificationCenterDele
         
         //save the account id and token in user defaults so that it could be used in app delegate to raise events of particular isntance
         if(cleverTapAdditionalInstance != nil){
-            UserDefaults.standard.setValue("TEST-654-Z9R-646Z", forKey: "AccountId")
-            UserDefaults.standard.setValue("TEST-2c1-456", forKey: "AccountToken")
+            UserDefaults.standard.setValue(countryAccountID, forKey: "AccountId")
+            UserDefaults.standard.setValue(countryAccountToken, forKey: "AccountToken")
         }
         
         cleverTapAdditionalInstance.recordEvent("Kuwait Screen Viewed")
@@ -53,12 +60,12 @@ class KuwaitScreenViewController: UIViewController, UNUserNotificationCenterDele
     }
     
     @IBAction func kuwaitOnUserLoginBtn(_ sender: Any) {
-        let ctConfig = CleverTapInstanceConfig.init(accountId: "TEST-654-Z9R-646Z", accountToken:  "TEST-2c1-456")
+        let ctConfig = CleverTapInstanceConfig.init(accountId: countryAccountID, accountToken:  countryAccountToken)
         let cleverTapAdditionalInstance = CleverTap.instance(with: ctConfig)
         let profile: Dictionary<String, Any> = [
-            "Name": "Kuwait iOS 6",
-            "Email": "kuwaitios6@test.com",
-            "Identity": "kuwaitios6"
+            "Name": "Kuwait iOS",
+            "Email": "ioskuwait1@test.com",
+            "Identity": "ioskuwait1"
         ]
 
         cleverTapAdditionalInstance.onUserLogin(profile)

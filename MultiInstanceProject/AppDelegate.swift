@@ -132,8 +132,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             
             //fetch the the account id and token from the app groups for the selected instance
             let defaults = UserDefaults.init(suiteName: "group.clevertapTest")
-            let appgroups_accountId = defaults?.value(forKey: "AccountId") as! String
-            let appgroups_accountToken = defaults?.value(forKey: "AccountToken") as! String
+            let appgroups_accountId = defaults?.value(forKey: "countryAccountID") as! String
+            let appgroups_accountToken = defaults?.value(forKey: "countryAccountToken") as! String
             
             let ctConfig = CleverTapInstanceConfig.init(accountId: appgroups_accountId, accountToken:  appgroups_accountToken)
             let cleverTapAdditionalInstance = CleverTap.instance(with: ctConfig)
