@@ -18,68 +18,70 @@
             endingLineNumber = "44"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "9B1A3553-83D8-444E-A078-80614BE4E9C4 - ed44cd6083a1539"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "MultiInstanceProject.KuwaitScreenViewController.viewDidLoad() -&gt; ()"
-                  moduleName = "MultiInstanceProject"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/karthik.iyer/Documents/IntegrationProjects/IOS/MultiInstance/MultiInstanceProject/MultiInstanceProject/KuwaitScreenViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "31"
-                  endingLineNumber = "31"
-                  offsetFromSymbolStart = "1128">
-               </Location>
-               <Location
-                  uuid = "9B1A3553-83D8-444E-A078-80614BE4E9C4 - ed44cd6083a1539"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "MultiInstanceProject.KuwaitScreenViewController.viewDidLoad() -&gt; ()"
-                  moduleName = "MultiInstanceProject"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/karthik.iyer/Documents/IntegrationProjects/IOS/MultiInstance/MultiInstanceProject/MultiInstanceProject/KuwaitScreenViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "31"
-                  endingLineNumber = "31"
-                  offsetFromSymbolStart = "1120">
-               </Location>
-               <Location
-                  uuid = "9B1A3553-83D8-444E-A078-80614BE4E9C4 - ed44cd6083a1518"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "MultiInstanceProject.KuwaitScreenViewController.viewDidLoad() -&gt; ()"
-                  moduleName = "MultiInstanceProject"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/karthik.iyer/Documents/IntegrationProjects/IOS/MultiInstance/MultiInstanceProject/MultiInstanceProject/KuwaitScreenViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "30"
-                  endingLineNumber = "30"
-                  offsetFromSymbolStart = "860">
-               </Location>
-               <Location
-                  uuid = "9B1A3553-83D8-444E-A078-80614BE4E9C4 - ed44cd6083a1518"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "MultiInstanceProject.KuwaitScreenViewController.viewDidLoad() -&gt; ()"
-                  moduleName = "MultiInstanceProject"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/karthik.iyer/Documents/IntegrationProjects/IOS/MultiInstance/MultiInstanceProject/MultiInstanceProject/KuwaitScreenViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "30"
-                  endingLineNumber = "30"
-                  offsetFromSymbolStart = "828">
-               </Location>
-            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2CFACA1C-70B5-4496-BD7F-F2A76340E8B0"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MultiInstanceProject/AppDelegate.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "56"
+            endingLineNumber = "56"
+            landmarkName = "shouldHandleCleverTap(_:for:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D9ED6169-4ACE-4836-A878-57BB8D441F02"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MultiInstanceProject/AppDelegate.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "186"
+            endingLineNumber = "186"
+            landmarkName = "pushNotificationTapped(withCustomExtras:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C3319405-A3D5-4302-8D77-F3579D8BE3B9"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MultiInstanceProject/AppDelegate.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "31"
+            endingLineNumber = "31"
+            landmarkName = "application(_:didFinishLaunchingWithOptions:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F0513CFC-CAF7-40F6-8A25-786FE9434B64"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MultiInstanceProject/AppDelegate.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "32"
+            endingLineNumber = "32"
+            landmarkName = "application(_:didFinishLaunchingWithOptions:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

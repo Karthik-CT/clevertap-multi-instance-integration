@@ -24,13 +24,22 @@
 @protocol CleverTapPushNotificationDelegate;
 #if !CLEVERTAP_NO_INAPP_SUPPORT
 @protocol CleverTapInAppNotificationDelegate;
+@class CTTemplateContext;
+@protocol CTTemplateProducer;
 #endif
+
+@protocol CTBatchSentDelegate;
+@protocol CTAttachToBatchHeaderDelegate;
+@protocol CTSwitchUserDelegate;
 
 @class CleverTapEventDetail;
 @class CleverTapUTMDetail;
 @class CleverTapInstanceConfig;
 @class CleverTapFeatureFlags;
 @class CleverTapProductConfig;
+
+@class CTInAppNotification;
+#import "CTVar.h"
 
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "OCUnusedMethodInspection"
@@ -47,11 +56,18 @@ typedef NS_ENUM(int, CleverTapChannel) {
     CleverTapInAppNotification = 2
 };
 
-typedef NS_ENUM(int, CTDirectCallEvent) {
-    DIRECT_CALL_OUTGOING_EVENT = 0,
-    DIRECT_CALL_INCOMING_EVENT,
-    DIRECT_CALL_END_EVENT
+typedef NS_ENUM(int, CTSignedCallEvent) {
+    SIGNED_CALL_OUTGOING_EVENT = 0,
+    SIGNED_CALL_INCOMING_EVENT,
+    SIGNED_CALL_END_EVENT
 };
+
+typedef NS_ENUM(int, CleverTapEncryptionLevel) {
+    CleverTapEncryptionNone = 0,
+    CleverTapEncryptionMedium = 1
+};
+
+typedef void (^CleverTapFetchInAppsBlock)(BOOL success);
 
 @interface CleverTap : NSObject
 
@@ -68,9 +84,9 @@ typedef NS_ENUM(int, CTDirectCallEvent) {
 @property (nonatomic, strong, readonly, nonnull) CleverTapInstanceConfig *config;
 
 /**
- CleverTap region/ domain value for direct call domain setup
+ CleverTap region/ domain value for signed call domain setup
  */
-@property (nonatomic, strong, readwrite, nullable) NSString *directCallDomain;
+@property (nonatomic, strong, readwrite, nullable) NSString *signedCallDomain;
 
 
 /* ------------------------------------------------------------------------------------------------------
@@ -168,6 +184,19 @@ typedef NS_ENUM(int, CTDirectCallEvent) {
  
  */
 + (instancetype _Nonnull)instanceWithConfig:(CleverTapInstanceConfig * _Nonnull)config andCleverTapID:(NSString * _Nonnull)cleverTapID;
+
+/*!
+ @method
+ 
+ @abstract
+ Returns the CleverTap instance corresponding to the CleverTap accountId param.
+ 
+ @discussion
+ Returns the instance if such is already created, otherwise loads it from cache.
+ 
+ @param accountId  the CleverTap account id
+ */
++ (CleverTap *_Nullable)getGlobalInstance:(NSString *_Nonnull)accountId;
 
 /*!
  @method
@@ -341,39 +370,20 @@ typedef NS_ENUM(int, CTDirectCallEvent) {
  */
 extern NSString * _Nonnull const CleverTapGeofencesDidUpdateNotification;
 
-
 /*!
  @method
  
  @abstract
- Get the device location if available.  Calling this will prompt the user location permissions dialog.
- 
- Please be sure to include the NSLocationWhenInUseUsageDescription key in your Info.plist.  See https://developer.apple.com/library/ios/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html#//apple_ref/doc/uid/TP40009251-SW26
- 
- Uses desired accuracy of kCLLocationAccuracyHundredMeters.
- 
- If you need background location updates or finer accuracy please implement your own location handling.  Please see https://developer.apple.com/library/ios/documentation/CoreLocation/Reference/CLLocationManager_Class/index.html for more info.
- 
- @discussion
- Optional.  You can use location to pass it to CleverTap via the setLocation API
- for, among other things, more fine-grained geo-targeting and segmentation purposes.  To enable, build the SDK with the preprocessor macro CLEVERTAP_LOCATION.
- */
-+ (void)getLocationWithSuccess:(void (^ _Nonnull)(CLLocationCoordinate2D location))success andError:(void (^_Nullable)(NSString * _Nullable reason))error;
-
-/*!
- @method
- 
- @abstract
- Creates a separate and distinct user profile identified by one or more of Identity, Email, FBID or GPID values,
+ Creates a separate and distinct user profile identified by one or more of Identity or Email values,
  and populated with the key-values included in the properties dictionary.
  
  @discussion
  If your app is used by multiple users, you can use this method to assign them each a unique profile to track them separately.
  
- If instead you wish to assign multiple Identity, Email, FBID and/or GPID values to the same user profile,
+ If instead you wish to assign multiple Identity and/or Email values to the same user profile,
  use profilePush rather than this method.
  
- If none of Identity, Email, FBID or GPID is included in the properties dictionary,
+ If none of Identity or Email is included in the properties dictionary,
  all properties values will be associated with the current user profile.
  
  When initially installed on this device, your app is assigned an "anonymous" profile.
@@ -403,10 +413,10 @@ extern NSString * _Nonnull const CleverTapGeofencesDidUpdateNotification;
  @discussion
  If your app is used by multiple users, you can use this method to assign them each a unique profile to track them separately.
  
- If instead you wish to assign multiple Identity, Email, FBID and/or GPID values to the same user profile,
+ If instead you wish to assign multiple Identity and/or Email values to the same user profile,
  use profilePush rather than this method.
  
- If none of Identity, Email, FBID or GPID is included in the properties dictionary,
+ If none of Identity or Email is included in the properties dictionary,
  all properties values will be associated with the current user profile.
  
  When initially installed on this device, your app is assigned an "anonymous" profile.
@@ -989,6 +999,20 @@ extern NSString * _Nonnull const CleverTapProfileDidInitializeNotification;
  @param delegate     an object conforming to the CleverTapInAppNotificationDelegate Protocol
  */
 - (void)setInAppNotificationDelegate:(id <CleverTapInAppNotificationDelegate> _Nullable)delegate;
+
+/*!
+ @method
+ 
+ @abstract
+ Forces inapps to update from the server.
+ 
+ @discussion
+ Forces inapps to update from the server.
+ 
+ @param block a callback with a boolean flag whether the update was successful.
+ */
+- (void)fetchInApps:(CleverTapFetchInAppsBlock _Nullable)block;
+
 #endif
 
 /*!
@@ -1207,6 +1231,28 @@ extern NSString * _Nonnull const CleverTapProfileDidInitializeNotification;
  @method
  
  @abstract
+ Set the Library name and version for Auxiliary SDKs
+ 
+ @discussion
+ Call this to method to set library name and version in the Auxiliary SDK
+ */
+- (void)setCustomSdkVersion:(NSString * _Nonnull)name version:(int)version;
+
+/*!
+ @method
+ 
+ @abstract
+ Updates a user locale after session start.
+ 
+ @discussion
+ Call this to method to set locale
+ */
+- (void)setLocale:(NSLocale * _Nonnull)locale;
+
+/*!
+ @method
+ 
+ @abstract
  Store the users location for geofences on the default shared CleverTap instance.
  
  @discussion
@@ -1250,28 +1296,18 @@ extern NSString * _Nonnull const CleverTapProfileDidInitializeNotification;
 #if defined(CLEVERTAP_HOST_WATCHOS)
 /** HostWatchOS
  */
-- (BOOL)handleMessage:(NSDictionary<NSString *, id> *)message forWatchSession:(WCSession *)session API_AVAILABLE(ios(9.0));
+- (BOOL)handleMessage:(NSDictionary<NSString *, id> *_Nonnull)message forWatchSession:(WCSession *_Nonnull)session API_AVAILABLE(ios(9.0));
 #endif
 
 /*!
  @method
  
  @abstract
- Record Direct Call System Events.
+ Record Signed Call System Events.
  
  @param calldetails call details dictionary
  */
-- (void)recordDirectCallEvent:(int)eventRawValue forCallDetails:(NSDictionary *_Nonnull)calldetails;
-
-/*!
- @method
- 
- @abstract
- Record Direct Call SDK version.
- 
- @param version Direct call SDK version
- */
-- (void)setDirectCallVersion:(NSString* _Nullable)version;
+- (void)recordSignedCallEvent:(int)eventRawValue forCallDetails:(NSDictionary *_Nonnull)calldetails;
 
 /*!
  @method
@@ -1296,6 +1332,166 @@ extern NSString * _Nonnull const CleverTapProfileDidInitializeNotification;
  */
 - (NSString *_Nullable)getDomainString;
 
+/*!
+ @method
+ 
+ @abstract
+ Checks if a custom CleverTapID is valid
+ */
++ (BOOL)isValidCleverTapId:(NSString *_Nullable)cleverTapID;
+
+#pragma mark Product Experiences - Vars
+
+/*!
+ @method
+ 
+ @abstract
+ Adds a callback to be invoked when variables are initialised with server values. Will be called each time new values are fetched.
+ 
+ @param block a callback to add.
+ */
+- (void)onVariablesChanged:(CleverTapVariablesChangedBlock _Nonnull )block;
+
+/*!
+ @method
+ 
+ @abstract
+ Adds a callback to be invoked only once when variables are initialised with server values.
+ 
+ @param block a callback to add.
+ */
+- (void)onceVariablesChanged:(CleverTapVariablesChangedBlock _Nonnull )block;
+ 
+/*!
+ @method
+ 
+ @abstract
+ Uploads variables to the server. Requires Development/Debug build/configuration.
+ */
+- (void)syncVariables;
+
+/*!
+ @method
+ 
+ @abstract
+ Uploads variables to the server.
+ 
+ @param isProduction Provide `true` if variables must be sync in Productuon build/configuration.
+ */
+- (void)syncVariables:(BOOL)isProduction;
+
+/*!
+ @method
+ 
+ @abstract
+ Forces variables to update from the server.
+ 
+ @discussion
+ Forces variables to update from the server. If variables have changed, the appropriate callbacks will fire. Use sparingly as if the app is updated, you'll have to deal with potentially inconsistent state or user experience.
+ The provided callback has a boolean flag whether the update was successful or not. The callback fires regardless
+ of whether the variables have changed.
+ 
+ @param block a callback with a boolean flag whether the update was successful.
+ */
+- (void)fetchVariables:(CleverTapFetchVariablesBlock _Nullable)block;
+
+/*!
+ @method
+ 
+ @abstract
+ Get an instance of a variable or a group.
+ 
+ @param name The name of the variable or the group.
+ 
+ @return
+ The instance of the variable or the group, or nil if not created yet.
+
+ */
+- (CTVar * _Nullable)getVariable:(NSString * _Nonnull)name;
+
+/*!
+ @method
+ 
+ @abstract
+ Get a copy of the current value of a variable or a group.
+ 
+ @param name The name of the variable or the group.
+ */
+- (id _Nullable)getVariableValue:(NSString * _Nonnull)name;
+
+/*!
+ @method
+ 
+ @abstract
+ Adds a callback to be invoked when no more file downloads are pending (either when no files needed to be downloaded or all downloads have been completed).
+ 
+ @param block a callback to add.
+ */
+- (void)onVariablesChangedAndNoDownloadsPending:(CleverTapVariablesChangedBlock _Nonnull )block;
+
+/*!
+ @method
+ 
+ @abstract
+ Adds a callback to be invoked only once when no more file downloads are pending (either when no files needed to be downloaded or all downloads have been completed).
+ 
+ @param block a callback to add.
+ */
+- (void)onceVariablesChangedAndNoDownloadsPending:(CleverTapVariablesChangedBlock _Nonnull )block;
+
+#if !CLEVERTAP_NO_INAPP_SUPPORT
+#pragma mark Custom Templates and Functions
+
+/*!
+ Register ``CTCustomTemplate`` templates through a ``CTTemplateProducer``.
+ See ``CTCustomTemplateBuilder``. Templates must be registered before the ``CleverTap`` instance, that would use
+ them, is created.
+ 
+ Typically, this method is called from `UIApplicationDelegate/application:didFinishLaunchingWithOptions:`.
+ If your application uses multiple ``CleverTap`` instances, use the ``CleverTapInstanceConfig`` within the
+ ``CTTemplateProducer/defineTemplates:`` method to differentiate which templates should be registered to which instances.
+ 
+ This method can be called multiple times with different ``CTTemplateProducer`` producers, however all of the
+ produced templates must have unique names.
+ 
+ @param producer A ``CTTemplateProducer`` to register and define templates with.
+ */
++ (void)registerCustomInAppTemplates:(id<CTTemplateProducer> _Nonnull)producer;
+
+/*!
+ @method
+ 
+ @abstract
+ Uploads Custom in-app templates and app functions to the server. Requires Development/Debug build/configuration.
+ */
+- (void)syncCustomTemplates;
+
+/*!
+ @method
+ 
+ @abstract
+ Uploads Custom in-app templates and app functions to the server.
+ 
+ @param isProduction Provide `true` if Custom in-app templates and app functions must be sync in Productuon build/configuration.
+ */
+- (void)syncCustomTemplates:(BOOL)isProduction;
+
+/*!
+ @method
+ 
+ @abstract
+ Retrieves the active context for a template that is currently displaying. If the provided template
+ name is not of a currently active template, this method returns nil.
+ 
+ @param templateName The template name to get the active context for.
+ 
+ @return
+ A CTTemplateContext object representing the active context for the given template name, or nil if no active context exists.
+ 
+ */
+- (CTTemplateContext * _Nullable)activeContextForTemplate:(NSString * _Nonnull)templateName;
+
+#endif
 
 @end
 
